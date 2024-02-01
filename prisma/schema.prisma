@@ -1,0 +1,27 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Users {
+    id       Int    @id @default(autoincrement())
+    name     String @db.VarChar(127)
+    email    String @unique @db.VarChar(127)
+    password String @db.VarChar(20)
+    photo    String @unique @db.VarChar(384)
+
+    @@map("users")
+}
+
+model Clients {
+    id      Int    @id @default(autoincrement())
+    name    String @db.VarChar(127)
+    photo   String @db.VarChar(384)
+    comment String @db.VarChar(500)
+}
+
+model Pictures {
+    id     Int    @id @default(autoincrement())
+    images String @db.VarChar(384)
+    type   String @db.VarChar(127)
+}
