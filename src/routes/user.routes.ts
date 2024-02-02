@@ -4,7 +4,10 @@ import {
   ensureDataIsValidMiddleware,
   ensureEmailExistsMiddleware,
 } from "../middlewares";
-import { createUserController } from "../controllers/user";
+import {
+  createUserController,
+  retrieveUserController,
+} from "../controllers/user";
 
 export const userRoutes: Router = Router();
 
@@ -14,3 +17,5 @@ userRoutes.post(
   ensureEmailExistsMiddleware,
   createUserController
 );
+
+userRoutes.get("", retrieveUserController);

@@ -6,9 +6,9 @@ export const retrieveUserController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const userId: number = Number(req.params.id);
+  // const userId: number = Number(req.params.id);
 
-  const user: TUserResponse = await retrieveUserService(userId);
+  const user: TUserResponse = await retrieveUserService();
 
   return res.json(user);
 };

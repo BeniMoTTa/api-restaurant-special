@@ -12,13 +12,13 @@ datasource db {
 
 model Users {
   id             Int       @id @default(autoincrement())
-  name           String?   @db.VarChar(127)
-  email          String?   @unique @db.VarChar(127)
-  password       String?   @db.VarChar(60)
+  name           String    @db.VarChar(127)
+  email          String    @unique @db.VarChar(127)
+  password       String    @db.VarChar(60)
   reset_password String?   @db.VarChar(127)
-  photo          String?   @db.VarChar(386)
-  phone          String?   @db.VarChar(11)
-  user_color     String?   @db.VarChar(8)
+  photo          String    @db.VarChar(386)
+  phone          String    @db.VarChar(11)
+  user_color     String    @db.VarChar(8)
   Comment        Comment[]
 
   @@map("users")
