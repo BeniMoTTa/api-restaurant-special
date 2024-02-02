@@ -1,27 +1,31 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Users {
-    id       Int    @id @default(autoincrement())
-    name     String @db.VarChar(127)
-    email    String @unique @db.VarChar(127)
-    password String @db.VarChar(20)
-    photo    String @unique @db.VarChar(384)
+  id             Int     @id @default(autoincrement())
+  name           String  @db.VarChar(127)
+  email          String  @unique @db.VarChar(127)
+  password       String  @db.VarChar(60)
+  reset_password String? @db.VarChar(127)
+  photo          String  @db.VarChar(386)
+  phone          String  @db.VarChar(11)
+  user_color     String  @db.VarChar(8)
 
-    @@map("users")
-}
-
-model Clients {
-    id      Int    @id @default(autoincrement())
-    name    String @db.VarChar(127)
-    photo   String @db.VarChar(384)
-    comment String @db.VarChar(500)
+  @@map("users")
 }
 
 model Pictures {
-    id     Int    @id @default(autoincrement())
-    images String @db.VarChar(384)
-    type   String @db.VarChar(127)
+  id       Int    @id @default(autoincrement())
+  pictures String @db.VarChar(384)
+
+  @@map("pictures")
 }
