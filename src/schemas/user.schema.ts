@@ -1,17 +1,17 @@
 import { hashSync } from "bcryptjs";
 import { z } from "zod";
+import { commentSchemaResponse } from "./comment.schema";
 
 const userSchema = z.object({
   id: z.number(),
   name: z.string().max(127),
   email: z.string().email().max(127),
-  password: z
-    .string()
-    .max(60)
-    .transform((password) => hashSync(password, 10)),
+  password: z.string().max(60),
   reset_password: z.string().max(127).nullable(),
   phone: z.string().max(15),
   user_color: z.string(),
+  photo: z.string(),
+  comments: z.array(commentSchemaResponse),
 });
 
 const resetEmailSchema = z.object({
@@ -24,6 +24,7 @@ const userSchemaRequest = userSchema.omit({
   id: true,
   user_color: true,
   reset_password: true,
+  comments: true,
 });
 
 const userSchemaColorRequest = userSchema.omit({
@@ -43,6 +44,7 @@ const userSchemaUpdate = userSchema
     id: true,
     user_color: true,
     reset_password: true,
+    comments: true,
   })
   .partial();
 

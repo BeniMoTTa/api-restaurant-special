@@ -1,5 +1,4 @@
 import { prisma } from "../../server";
-
 import {
   TUserRequestWithColor,
   TUserResponse,
