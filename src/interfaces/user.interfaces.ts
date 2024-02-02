@@ -16,6 +16,4 @@ export type TUserRequestWithColor = z.infer<typeof userSchemaColorRequest>;
 export type TUserResponse = z.infer<typeof userSchemaResponse>;
 
 export type TUserUpdateRequest = Partial<TUserRequest>;
-export type TResetEmail = z.infer<typeof resetEmailSchema>
-
-
+export type TResetEmail = z.infer<typeof resetEmailSchema>;

@@ -1,10 +1,12 @@
 import { prisma } from "../../server";
-import { TUserResponse } from "../../interfaces/user.interfaces";
-import { userSchemaResponse } from "../../schemas/user.schema";
+import { TUser, TUserResponse } from "../../interfaces/user.interfaces";
+import {
+  manyUserResponse,
+  userSchemaResponse,
+} from "../../schemas/user.schema";
 
-export const retrieveUserService = async (): // userId: number
-Promise<TUserResponse> => {
+export const retrieveUserService = async (): Promise<TUser[]> => {
   const users = await prisma.users.findMany();
 
-  return userSchemaResponse.parse(users);
+  return manyUserResponse.parse(users);
 };

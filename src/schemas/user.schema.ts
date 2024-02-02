@@ -35,6 +35,8 @@ const userSchemaResponse = userSchema.omit({
   password: true,
 });
 
+const manyUserResponse = z.array(userSchema);
+
 const userSchemaResetPasswordResponse = userSchema.omit({
   reset_password: true,
 });
@@ -56,4 +58,5 @@ export {
   userSchemaUpdate,
   resetEmailSchema,
   userSchemaResetPasswordResponse,
+  manyUserResponse,
 };
