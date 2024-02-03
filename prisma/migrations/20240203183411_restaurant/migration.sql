@@ -6,25 +6,20 @@ CREATE TABLE "users" (
     "password" VARCHAR(60) NOT NULL,
     "reset_password" VARCHAR(127),
     "photo" VARCHAR(386) NOT NULL,
-    "phone" VARCHAR(11) NOT NULL,
-    "user_color" VARCHAR(8) NOT NULL,
+    "phone" VARCHAR(20) NOT NULL,
+    "user_color" VARCHAR(10) NOT NULL,
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "pictures" (
-    "id" SERIAL NOT NULL,
-    "pictures" VARCHAR(384) NOT NULL,
-
-    CONSTRAINT "pictures_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "comments" (
     "id" SERIAL NOT NULL,
     "content" VARCHAR(512) NOT NULL,
-    "userId" INTEGER NOT NULL,
+    "userId" INTEGER,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "edited" BOOLEAN NOT NULL DEFAULT false,
+    "editedAt" TIMESTAMP(3),
 
     CONSTRAINT "comments_pkey" PRIMARY KEY ("id")
 );
@@ -33,4 +28,4 @@ CREATE TABLE "comments" (
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- AddForeignKey
-ALTER TABLE "comments" ADD CONSTRAINT "comments_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "comments" ADD CONSTRAINT "comments_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE SET NULL ON UPDATE CASCADE;

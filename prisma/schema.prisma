@@ -10,6 +10,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Comment {
+  id        Int       @id @default(autoincrement())
+  content   String    @db.VarChar(512)
+  userId    Int?
+  user      Users?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now()) @updatedAt
+  edited    Boolean?  @default(false) @db.Boolean()
+  editedAt  DateTime?
+
+  @@map("comments")
+}
+
 model Users {
   id             Int       @id @default(autoincrement())
   name           String    @db.VarChar(127)
@@ -19,23 +31,7 @@ model Users {
   photo          String    @db.VarChar(386)
   phone          String    @db.VarChar(20)
   user_color     String    @db.VarChar(10)
-  Comment        Comment[]
+  comments       Comment[]
 
   @@map("users")
-}
-
-model Pictures {
-  id       Int    @id @default(autoincrement())
-  pictures String @db.VarChar(384)
-
-  @@map("pictures")
-}
-
-model Comment {
-  id      Int    @id @default(autoincrement())
-  content String @db.VarChar(512)
-  userId  Int?
-  user    Users? @relation(fields: [userId], references: [id])
-
-  @@map("comments")
 }

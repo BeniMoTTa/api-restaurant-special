@@ -1,25 +1,31 @@
 import { prisma } from "../../server";
-import { TUser, TUserResponse } from "../../interfaces/user.interfaces";
+import {
+  TUser,
+  TUserRequestWithColor,
+  TUserResponse,
+} from "../../interfaces/user.interfaces";
 import {
   manyUserResponse,
   userSchemaResponse,
 } from "../../schemas/user.schema";
 import { Users } from "@prisma/client";
 
-export const retrieveUserService = async (): Promise<TUser[]> => {
+export const retrieveUserService = async (): Promise<
+  TUserRequestWithColor[]
+> => {
   try {
-    const users: Users[] = await prisma.users.findMany({
+    const users: TUserResponse[] = await prisma.users.findMany({
       orderBy: [
         {
           id: "asc",
         },
       ],
       include: {
-        Comment: true,
+        comments: true,
       },
     });
 
-    const usersWithComments: TUser[] = users.map((user) => ({
+    const usersWithComments: TUserResponse[] = users.map((user) => ({
       ...user,
       comments: (user as any).Comment || [],
     }));

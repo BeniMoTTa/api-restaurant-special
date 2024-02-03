@@ -1,6 +1,6 @@
 import { hashSync } from "bcryptjs";
 import { z } from "zod";
-import { commentSchemaResponse } from "./comment.schema";
+import { commentSchema, commentSchemaResponse } from "./comment.schema";
 
 const userSchema = z.object({
   id: z.number(),
@@ -11,31 +11,33 @@ const userSchema = z.object({
   phone: z.string().max(30),
   user_color: z.string(),
   photo: z.string(),
-  comments: z.array(commentSchemaResponse).nullable(),
 });
 
+const userSchemaResponse = userSchema.omit({
+  password: true,
+});
 const resetEmailSchema = z.object({
   to: z.string().max(127),
   subject: z.string().max(127),
   text: z.string().max(127),
 });
 
+const userCommentsResponse = z.object({
+  comments: z.array(commentSchemaResponse),
+});
+
 const userSchemaRequest = userSchema.omit({
   id: true,
   user_color: true,
   reset_password: true,
-  comments: true,
 });
 
 const userSchemaColorRequest = userSchema.omit({
-  id: true,
-});
-
-const userSchemaResponse = userSchema.omit({
   password: true,
+  reset_password: true,
 });
 
-const manyUserResponse = z.array(userSchema);
+const manyUserResponse = z.array(userSchemaColorRequest);
 
 const userSchemaResetPasswordResponse = userSchema.omit({
   reset_password: true,
@@ -59,4 +61,5 @@ export {
   resetEmailSchema,
   userSchemaResetPasswordResponse,
   manyUserResponse,
+  userCommentsResponse,
 };

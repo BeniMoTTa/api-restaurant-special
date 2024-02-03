@@ -9,7 +9,7 @@ import {
 
 export type TUser = z.infer<typeof userSchema>;
 
-export type TUserRequest = z.infer<typeof userSchemaRequest>;
+export type TUserRequest = z.infer<typeof userSchemaColorRequest>;
 
 export type TUserRequestWithColor = z.infer<typeof userSchemaColorRequest>;
 

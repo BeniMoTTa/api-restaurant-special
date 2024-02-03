@@ -5,7 +5,6 @@ const prisma = new PrismaClient();
 const generateUsers = async () => {
   const usersData = [
     {
-      id: 1,
       name: "Julia Martínez",
       email: "user1@example.com",
       password: "password1",
@@ -15,7 +14,6 @@ const generateUsers = async () => {
       user_color: "#654321",
     },
     {
-      id: 2,
       name: "Kim Hyung",
       email: "user2@example.com",
       password: "password2",
@@ -26,7 +24,6 @@ const generateUsers = async () => {
     },
 
     {
-      id: 3,
       name: "Mark Green",
       email: "user3@example.com",
       password: "password3",

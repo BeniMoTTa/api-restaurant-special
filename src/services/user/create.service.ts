@@ -1,5 +1,6 @@
 import { prisma } from "../../server";
 import {
+  TUser,
   TUserRequestWithColor,
   TUserResponse,
 } from "../../interfaces/user.interfaces";
@@ -7,7 +8,7 @@ import { userSchemaResponse } from "../../schemas/user.schema";
 import { Users } from "@prisma/client";
 
 export const createUserService = async (
-  data: TUserRequestWithColor
+  data: TUser
 ): Promise<TUserResponse> => {
   try {
     const colors = [
@@ -32,20 +33,14 @@ export const createUserService = async (
     data.user_color = colors[randomIndex];
     data.reset_password = "";
 
-    const user: Users = await prisma.users.create({
-      data: {
-        ...data,
-        Comment: {
-          create: data.comments ?? [],
-        },
-      },
-      include: {
-        Comment: true,
-      },
-    });
+    // Extrair a propriedade 'comments' do objeto 'data'
 
+    const user = await prisma.users.create({
+      data,
+    });
     const formattedUser: TUserResponse = userSchemaResponse.parse(user);
 
+    console.log("colors");
     return formattedUser;
   } catch (error) {
     console.error("Erro na criação do usuário:", error);
