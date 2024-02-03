@@ -17,8 +17,8 @@ model Users {
   password       String    @db.VarChar(60)
   reset_password String?   @db.VarChar(127)
   photo          String    @db.VarChar(386)
-  phone          String    @db.VarChar(11)
-  user_color     String    @db.VarChar(8)
+  phone          String    @db.VarChar(20)
+  user_color     String    @db.VarChar(10)
   Comment        Comment[]
 
   @@map("users")
@@ -34,8 +34,8 @@ model Pictures {
 model Comment {
   id      Int    @id @default(autoincrement())
   content String @db.VarChar(512)
-  userId  Int
-  user    Users  @relation(fields: [userId], references: [id])
+  userId  Int?
+  user    Users? @relation(fields: [userId], references: [id])
 
   @@map("comments")
 }

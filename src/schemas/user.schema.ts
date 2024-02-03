@@ -8,10 +8,10 @@ const userSchema = z.object({
   email: z.string().email().max(127),
   password: z.string().max(60),
   reset_password: z.string().max(127).nullable(),
-  phone: z.string().max(15),
+  phone: z.string().max(30),
   user_color: z.string(),
   photo: z.string(),
-  comments: z.array(commentSchemaResponse),
+  comments: z.array(commentSchemaResponse).nullable(),
 });
 
 const resetEmailSchema = z.object({
