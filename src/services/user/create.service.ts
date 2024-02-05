@@ -33,14 +33,11 @@ export const createUserService = async (
     data.user_color = colors[randomIndex];
     data.reset_password = "";
 
-    // Extrair a propriedade 'comments' do objeto 'data'
-
     const user = await prisma.users.create({
       data,
     });
     const formattedUser: TUserResponse = userSchemaResponse.parse(user);
 
-    console.log("colors");
     return formattedUser;
   } catch (error) {
     console.error("Erro na criação do usuário:", error);
