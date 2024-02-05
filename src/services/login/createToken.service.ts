@@ -1,5 +1,5 @@
 import { compare } from "bcryptjs";
-import { TLoginRequest } from "../../interfaces/login.interfaces";
+import { login } from "../../interfaces/login.interfaces";
 import { prisma } from "../../server";
 import { AppError } from "../../errors/errors";
 import jwt from "jsonwebtoken";
@@ -8,7 +8,7 @@ import "dotenv/config";
 export const createTokenService = async ({
   email,
   password,
-}: TLoginRequest): Promise<{}> => {
+}: login): Promise<{}> => {
   const user = await prisma.users.findFirst({
     where: {
       email,
@@ -18,8 +18,12 @@ export const createTokenService = async ({
   if (!user) {
     throw new AppError("Invalid credentials", 403);
   }
-
-  const passwordMatch: boolean = await compare(password, user.password);
+  const passwordMatch: boolean = await compare(
+    password.trim(),
+    user.password.trim()
+  );
+  console.log("Password (input):", password);
+  console.log("Password (database):", user.password);
 
   if (!passwordMatch) {
     throw new AppError("Invalid credentials", 403);

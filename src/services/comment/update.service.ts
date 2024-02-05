@@ -3,13 +3,13 @@ import {
   TCommentsUpdateRequest,
 } from "../../interfaces/comment.interfaces";
 import { prisma } from "../../server";
-import { Comments } from "@prisma/client";
+import { Comment } from "@prisma/client";
 import { commentSchemaResponse } from "../../schemas/comment.schema";
 export const updateCommentService = async (
   data: TCommentsUpdateRequest,
   commentId: number
 ): Promise<TCommentResponse> => {
-  const updatedComments: Comments = await prisma.comments.update({
+  const updatedComments: Comment = await prisma.comment.update({
     where: { id: commentId },
     data: {
       ...data,

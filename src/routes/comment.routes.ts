@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   createCommentController,
   deleteCommentController,
-  listAllCommentsController,
+  listAllCommentController,
 } from "../controllers/comment";
 import { listAllUserCommentsController } from "../controllers/comment/listAdComments.controller";
 import { ensureAuthMiddleware } from "../middlewares";
@@ -10,7 +10,7 @@ import { ensureCommentExistsMiddleware } from "../middlewares/ensureCommentExist
 
 export const commentRoutes: Router = Router();
 
-commentRoutes.get("", listAllCommentsController);
+commentRoutes.get("", listAllCommentController);
 commentRoutes.get(
   "/user/:id",
   ensureAuthMiddleware,
