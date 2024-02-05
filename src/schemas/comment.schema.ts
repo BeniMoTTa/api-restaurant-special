@@ -9,10 +9,6 @@ const commentSchema = z.object({
   updated_at: z.date(),
 });
 
-const commentSchemaRequest = commentSchema.omit({
-  id: true,
-});
-
 const commentSchemaResponse = commentSchema.extend({
   user: z.object({
     id: z.number(),
@@ -20,9 +16,15 @@ const commentSchemaResponse = commentSchema.extend({
     user_color: z.string(),
     photo: z.string(),
   }),
+  userId: z.number().nullable(),
+  updated_at: z.date().nullable(),
 });
 
-const manyCommentSchemaResponse = z.array(commentSchema);
+const commentSchemaRequest = commentSchema.omit({
+  id: true,
+});
+
+const manyCommentSchemaResponse = z.array(commentSchemaResponse);
 
 const commentSchemaUpdate = commentSchema
   .omit({

@@ -5,7 +5,6 @@ import {
   TUserResponse,
 } from "../../interfaces/user.interfaces";
 import { userSchemaResponse } from "../../schemas/user.schema";
-import { Users } from "@prisma/client";
 
 export const createUserService = async (
   data: TUser
