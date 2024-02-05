@@ -32,16 +32,6 @@ model Users {
   phone          String    @db.VarChar(20)
   user_color     String    @db.VarChar(10)
   comments       Comment[]
-  messages       Message[]
 
   @@map("users")
-}
-
-model Message {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  user      Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  option    String
-  content   String
-  createdAt DateTime @default(now()) @updatedAt
 }
