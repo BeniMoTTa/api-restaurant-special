@@ -3,6 +3,7 @@ import { userSchemaRequest, userSchemaUpdate } from "../schemas/user.schema";
 import {
   ensureDataIsValidMiddleware,
   ensureEmailExistsMiddleware,
+  ensureUserExistsMiddleware,
 } from "../middlewares";
 import {
   createUserController,
@@ -22,7 +23,7 @@ userRoutes.post(
 );
 
 userRoutes.get("", retrieveUserController);
-userRoutes.get("/:id", retrieveOneUserController);
+userRoutes.get("/:id", ensureUserExistsMiddleware, retrieveOneUserController);
 
 userRoutes.patch(
   "/:id",
