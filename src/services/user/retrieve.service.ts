@@ -8,7 +8,6 @@ import {
   manyUserResponse,
   userSchemaResponse,
 } from "../../schemas/user.schema";
-import { Users } from "@prisma/client";
 
 export const retrieveUserService = async (): Promise<
   TUserRequestWithColor[]

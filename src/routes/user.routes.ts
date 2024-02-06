@@ -32,4 +32,4 @@ userRoutes.patch(
   updateUserController
 );
 
-userRoutes.delete("/:id", deleteUserController);
+userRoutes.delete("/:id", ensureUserExistsMiddleware, deleteUserController);

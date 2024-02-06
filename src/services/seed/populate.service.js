@@ -1,0 +1,69 @@
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const client_1 = require("@prisma/client");
+const prisma = new client_1.PrismaClient();
+const generateUsers = () => __awaiter(void 0, void 0, void 0, function* () {
+    const usersData = [
+        {
+            name: "Julia Martínez",
+            email: "user1@example.com",
+            password: "password1",
+            photo: "https://img.freepik.com/fotos-gratis/mulher-jovem-e-elegante-magnifica-com-grandes-olhos-castanhos-e-um-sorriso-incrivel_291049-2575.jpg?size=626&ext=jpg&ga=GA1.1.1448711260.1706832000&semt=sph",
+            phone: "+1 244 40-2213",
+            user_color: "#654321",
+        },
+        {
+            name: "Kim Hyung",
+            email: "user2@example.com",
+            password: "password2",
+            photo: "https://img.freepik.com/fotos-gratis/confiante-atraente-e-extrovertida-mulher-asiatica-em-um-top-amarelo-sorrindo-amigavel-e-feliz-enquanto-cruza-as-maos-no-peito-posando-sobre-um-fundo-branco-autoconfiante-pose-atrevida-parece-determinado_176420-36757.jpg",
+            phone: "+1 305 55-2001",
+            user_color: "#B2FFFF",
+        },
+        {
+            name: "Mark Green",
+            email: "user3@example.com",
+            password: "password3",
+            photo: "https://img.freepik.com/fotos-gratis/homem-bonito-sentado-em-uma-pedra_144627-1676.jpg",
+            phone: "+1 211 80-4551",
+            user_color: "#006400",
+        },
+    ];
+    const commentsData = [
+        {
+            content: "This place is amazing! The food is so delicious, and the atmosphere is cozy. I'll definitely come back!",
+        },
+        {
+            content: "I had a great time at JohnRestaurant. The staff was friendly, and the menu had excellent choices!",
+        },
+        {
+            content: "JohnRestaurant exceeded my expectations! The flavors in every dish were fantastic. Highly recommended!",
+        },
+    ];
+    for (let i = 0; i < usersData.length; i++) {
+        const userData = usersData[i];
+        const commentData = commentsData[i];
+        const user = yield prisma.users.create({
+            data: Object.assign({}, userData),
+        });
+        const comment = yield prisma.comment.create({
+            data: Object.assign(Object.assign({}, commentData), { user: {
+                    connect: {
+                        id: user.id,
+                    },
+                } }),
+        });
+        console.log(`User ${user.name} generated successfully with a comment about JohnRestaurant.`);
+    }
+    yield prisma.$disconnect();
+});
+generateUsers();
