@@ -5,8 +5,7 @@ const commentSchema = z.object({
   content: z.string().max(512),
   userId: z.number(),
   edited: z.boolean().optional(),
-  created_at: z.date(),
-  updated_at: z.date(),
+  created_at: z.date().nullish(),
 });
 
 const commentSchemaResponse = commentSchema.extend({
@@ -17,7 +16,7 @@ const commentSchemaResponse = commentSchema.extend({
     photo: z.string(),
   }),
   userId: z.number().nullable(),
-  updated_at: z.date().nullable(),
+  updated_at: z.date().nullish(),
 });
 
 const commentSchemaRequest = commentSchema.omit({

@@ -1,7 +1,4 @@
-import {
-  TCommentResponse,
-  TManyCommentsResponse,
-} from "../../interfaces/comment.interfaces";
+import { TCommentResponse } from "../../interfaces/comment.interfaces";
 import { manyCommentSchemaResponse } from "../../schemas/comment.schema";
 import { prisma } from "../../server";
 import { Comment } from "@prisma/client";
@@ -11,7 +8,7 @@ export const listAllUserCommentsService = async (
 ): Promise<TCommentResponse[]> => {
   const comments: Comment[] = await prisma.comment.findMany({
     where: {
-      id: userId,
+      userId: userId,
     },
     include: {
       user: true,

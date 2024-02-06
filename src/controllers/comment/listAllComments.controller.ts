@@ -1,16 +1,12 @@
 import { Request, Response } from "express";
 import { TCommentResponse } from "../../interfaces/comment.interfaces";
-import { listAllUserCommentsService } from "../../services/comment/listUserAllComments.service";
+import { listAllCommentService } from "../../services/comment/listAllComments.service";
 
 export const listAllCommentController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const userId: number = Number(req.params.id);
-
-  const allComments: TCommentResponse[] = await listAllUserCommentsService(
-    userId
-  );
+  const allComments: TCommentResponse[] = await listAllCommentService();
 
   return res.json(allComments);
 };

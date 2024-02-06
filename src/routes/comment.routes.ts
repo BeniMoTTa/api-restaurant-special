@@ -11,19 +11,10 @@ import { ensureCommentExistsMiddleware } from "../middlewares/ensureCommentExist
 export const commentRoutes: Router = Router();
 
 commentRoutes.get("", listAllCommentController);
-commentRoutes.get(
-  "/user/:id",
-  ensureAuthMiddleware,
-  listAllUserCommentsController
-);
-commentRoutes.post(
-  "",
-  ensureCommentExistsMiddleware,
-  ensureAuthMiddleware,
-  createCommentController
-);
+commentRoutes.get("/user/:id", listAllUserCommentsController);
+commentRoutes.post("", ensureAuthMiddleware, createCommentController);
 commentRoutes.delete(
-  "/comment/:id",
+  "/:id",
   ensureAuthMiddleware,
   ensureCommentExistsMiddleware,
   deleteCommentController
